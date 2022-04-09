@@ -3,6 +3,8 @@
 ## Goals:
 
 -Learn more about image pipelines
--Build a general purpose Imager on the jetson
+
+-Build a general purpose Imager on the jetsons
+
 -Build GPU accelerated ML algos for CV
 
