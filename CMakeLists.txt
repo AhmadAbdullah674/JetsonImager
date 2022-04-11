@@ -6,12 +6,10 @@ link_libraries(stdc++fs)
 if(RELEASE)
   set(CMAKE_BUILD_TYPE Release)
   set(CMAKE_CXX_FLAGS_RELEASE "-O3")
-  #set(CMAKE_CXX_FLAGS_RELEASE "${CMAKE_CXX_FLAGS_RELEASE}")
   message("Building with Optimizations")
 else()
   set(CMAKE_BUILD_TYPE Debug) 
   set(CMAKE_CXX_FLAGS_DEBUG "-O0 -DDEBUG -Wall -Wno-unused-function -Wno-sign-compare -Wno-dev")
-  #set(CMAKE_CXX_FLAGS_DEBUG "${CMAKE_CXX_FLAGS_DEBUG}")
   message("${red}\nBuild with  Debugging${nc}\n")
 endif()
 
@@ -40,8 +38,6 @@ enable_language(CUDA)
 # This has to be done after CUDA is enabled to use Jetson's filesystem
 set(CMAKE_CUDA_FLAGS "${CMAKE_CUDA_FLAGS} -Xcompiler --sysroot=${SYS_ROOT} -ccbin ${CMAKE_CXX_COMPILER}")
 set(CMAKE_CUDA_IMPLICIT_LINK_DIRECTORIES /usr/local/cuda/targets/aarch64-linux/lib)
-
-# find_package(PkgConfig REQUIRED)
 
 # -- MULTIMEDIA_API --
 set(TEGRA_MULTIMEDIA_API_INCLUDE_DIR "${TEGRA_MULTIMEDIA_API_DIR}/include")
