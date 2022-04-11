@@ -8,3 +8,6 @@
 
 -Build GPU accelerated ML algos for CV
 
+# Build
+- Have a Nvidia Jeston Nano/TX2
+- Have cmake version >= 3.21 installed
