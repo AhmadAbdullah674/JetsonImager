@@ -19,7 +19,6 @@ set(CMAKE_CUDA_FLAGS "${CMAKE_CUDA_FLAGS} -arch=sm_53")
 
 set(SYS_ROOT "/")
 
-# Is this a NANO or some other device, for now support only NANO
 execute_process(COMMAND "cat" ${SYS_ROOT}sys/module/tegra_fuse/parameters/tegra_chip_id OUTPUT_VARIABLE JETSON_ID)
 if (${JETSON_ID} EQUAL "33")
 	set(TEGRA_MULTIMEDIA_API_DIR "${SYS_ROOT}usr/src/jetson_multimedia_api")
@@ -27,20 +26,19 @@ else()
 	message(FATAL_ERROR "Jetson Chip ID ${JETSON_ID} not supported")
 endif()
 
-
-# -- CUDA COMPILER --
 set(CUDA_TOOLKIT_ROOT_DIR "/usr/local/cuda-10.2")
 set(CMAKE_CUDA_COMPILER "${CUDA_TOOLKIT_ROOT_DIR}/bin/nvcc")
 set(CUDA_CUDART_LIBRARY "${CUDA_TOOLKIT_ROOT_DIR}/targets/aarch64-linux/lib/libcudart.so")
 find_package(CUDA REQUIRED)
 enable_language(CUDA)
 
-# This has to be done after CUDA is enabled to use Jetson's filesystem
 set(CMAKE_CUDA_FLAGS "${CMAKE_CUDA_FLAGS} -Xcompiler --sysroot=${SYS_ROOT} -ccbin ${CMAKE_CXX_COMPILER}")
 set(CMAKE_CUDA_IMPLICIT_LINK_DIRECTORIES /usr/local/cuda/targets/aarch64-linux/lib)
 
-# -- MULTIMEDIA_API --
 set(TEGRA_MULTIMEDIA_API_INCLUDE_DIR "${TEGRA_MULTIMEDIA_API_DIR}/include")
+
+# Setting common Modules
+set(JETSON_IMAGER_DIR "${CMAKE_CURRENT_SOURCE_DIR}/modules")
 
 # Linking
 link_directories(${CMAKE_LIB_DIR}:${SYS_ROOT}usr/lib/aarch64-linux-gnu:${SYS_ROOT}usr/lib/aarch64-linux-gnu/tegra:${SYS_ROOT}lib/aarch64-linux-gnu;${SYS_ROOT}/usr/lib/aarch64-linux-gnu/tegra)
