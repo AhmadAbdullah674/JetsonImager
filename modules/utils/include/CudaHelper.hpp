@@ -13,7 +13,7 @@ class CudaHelper{
       refs = 0;
     }
     static CudaHelper* cudaHelper_;
-    static std::mutex mutex;
+    static std::mutex mutex_;
     int refs;
     ~CudaHelper(){}
   
@@ -24,7 +24,7 @@ class CudaHelper{
     CudaHelper& operator=(CudaHelper&& other) noexcept = delete;
     
     static CudaHelper* getCudaHelper(){
-      std::lock_guard<std::mutex> guard(g_pages_mutex);
+      std::lock_guard<std::mutex> guard(mutex_);
       if(cudaHelper_ == nullptr){
         cudaHelper_ = new CudaHelper;
       }
@@ -32,7 +32,7 @@ class CudaHelper{
       return cudaHelper_;
     }
     static void deleteCudaHelper(){
-      std::lock_guard<std::mutex> guard(g_pages_mutex);
+      std::lock_guard<std::mutex> guard(mutex_);
       if(!cudaHelper_->refs){
         return;
       }
@@ -41,5 +41,6 @@ class CudaHelper{
 };
 
 CudaHelper* CudaHelper::cudaHelper_= nullptr;
+std::mutex CudaHelper::mutex_;
 
 #endif

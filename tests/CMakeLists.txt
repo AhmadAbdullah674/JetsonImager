@@ -2,7 +2,6 @@ cmake_minimum_required(VERSION 3.21)
 project(tests VERSION 1.0.0)
 enable_language(CUDA)
 
-# include directory
 include_directories(
 	${CMAKE_CURRENT_SOURCE_DIR}/include
 	${TEGRA_MULTIMEDIA_API_INCLUDE_DIR}
@@ -11,6 +10,13 @@ include_directories(
 	${JETSON_IMAGER_DIR}/utils/include
 )
 
+#get_property(subdirectories DIRECTORY ${JETSON_IMAGER_DIR} PROPERTY SUBDIRECTORIES)
+# foreach(subdir ${JETSON_IMAGER_DIR}/include)
+# 	message(STATUS "Hello ${subdir}")
+# 	include_directories(${subdir})
+# endforeach()
+
 # add all source files
 FILE(GLOB SOURCES "src/*.cpp")
 add_executable(${PROJECT_NAME} ${SOURCES})
+target_link_libraries(${PROJECT_NAME} imaging utils)
