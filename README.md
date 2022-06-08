@@ -11,3 +11,9 @@
 # Build
 - Have a Nvidia Jeston Nano/TX2
 - Have cmake version >= 3.21 installed
+```
+  mkdir build && cd build
+
+  cmake ../ && cmake --build .
+  
+```
