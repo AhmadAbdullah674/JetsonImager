@@ -5,11 +5,11 @@ link_libraries(stdc++fs)
 #Building a debug or a release
 if(RELEASE)
   set(CMAKE_BUILD_TYPE Release)
-  set(CMAKE_CXX_FLAGS_RELEASE "-O3")
+  set(CMAKE_CXX_FLAGS_RELEASE "-O3 -Werror")
   message("Building with Optimizations")
 else()
   set(CMAKE_BUILD_TYPE Debug) 
-  set(CMAKE_CXX_FLAGS_DEBUG "-O0 -DDEBUG -Wall -Wno-unused-function -Wno-sign-compare -Wno-dev")
+  set(CMAKE_CXX_FLAGS_DEBUG "-O0 -DDEBUG -Wall -Wno-unused-function -Wno-sign-compare -Wno-dev -Werror")
   message("${red}\nBuild with  Debugging${nc}\n")
 endif()
 
