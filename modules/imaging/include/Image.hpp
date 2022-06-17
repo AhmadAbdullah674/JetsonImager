@@ -16,10 +16,12 @@ class Image{
     size_t y;
   public:
     Image();
-    Image(Image&) = delete;
-    Image(Image&&);
+    Image(const Image&) = delete;
+    Image(Image&&) = default;
     ~Image();
 
+    Image& operator=(Image&&) = default;
+    
     bool operator==(const Image& rhs){
       if(!inGPU && !rhs.inGPU && x == rhs.x && y == rhs.y
         && channels == rhs.channels && bitDepth == rhs.bitDepth){
@@ -44,13 +46,13 @@ class Image{
       return !(*this == rhs);
     }
 
-    //No such comparision for Images I thing??
+    //No such comparision for Images I think??
     bool operator< (const Image& rhs) = delete;
     bool operator> (const Image& rhs) = delete;
     bool operator<=(const Image& rhs) = delete;
     bool operator>=(const Image& rhs) = delete;
     
-    Image& operator=(Image&) = delete;
+    Image& operator=(const Image&) = delete;
 
     bool getImageFromFile(std::string file);
     bool saveImageToFile(std::string file);
